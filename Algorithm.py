@@ -115,9 +115,6 @@ def info():
     if current_error is not None:
         ErrorListInfo[-1]['found'][-1]['errorDuration'] = consecutiveCount
 
-    for i in ErrorListInfo:
-        print(i)
-
 info()
 
 
@@ -406,8 +403,8 @@ def rules():
     for error_current, follow_counts in error_follow_count.items():
         for next_error, count in follow_counts.items():
             # проверка, которая отсортирует ошибки, встречавшиеся меньше или ровно 3 раза.
-            if len(total_follow_errors.values()) <= 3:
-                continue
+            # if len(total_follow_errors.values()) <= 3:
+            #     continue
             total_follow_error_count = total_follow_errors[error_current]
             percentage = int((count / total_follow_error_count) * 100)
             # ниже 70% ошибки не берем во внимание
@@ -614,7 +611,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def upload_file():
-    os.remove('file.csv')
+    # os.remove('file.csv')
     return jsonify(forecasting_list)
 
 

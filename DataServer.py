@@ -1,11 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
+from Text import Error_200, Date_range
 
 
 class DataServer:
-
-    list_date_server = []
-    list_error_server = []
-
     def __init__(self):
         self.app = Flask(__name__)
         self.list_date_server = []
@@ -14,6 +11,7 @@ class DataServer:
 
     def setup_routes(self):
         self.app.add_url_rule('/', 'receive_data', self.receive_data, methods=['POST'])
+        self.app.add_url_rule('/get_data', 'get_stored_data', self.get_stored_data, methods=['GET'])
 
     def receive_data(self):
         # Очищаем данные перед использованием списков для дат и ошибок
@@ -27,25 +25,29 @@ class DataServer:
             for info in data_list:
                 date = info.get('Date')
                 error = info.get('Error')
-
-                # Проверяем, если одно из полей равно None, возвращаем ошибку
+                # Проверяем, если одно из полей равно None, возвращаем ошибку.
                 if date is None or error is None:
-                    return ('Ошибка: Неполные данные.\nНеобходимо вписать данные в формате JSON.\n'
-                            '[\n{\n"Date": - Сюда пишется дата.\n"Error": - Сюда пишется ошибка.\n}\n]')
+                    return Error_200
+                # Проверка на длину получаемых данных.
+                elif len(date) == 10 and len(error) == 1:
+                    # Сохраняем данные для дат в список.
+                    self.list_date_server.append(date)
+                    # Сохраняем данные для ошибок в список.
+                    self.list_error_server.append(error)
+                else:
+                    return Error_200
 
-                # Сохраняем данные для дат в список
-                self.list_date_server.append(date)
-                # Сохраняем данные для ошибок в список
-                self.list_error_server.append(error)
-
+            # Проверяется количество дат с количеством ошибок.
             if len(self.list_date_server) == len(self.list_error_server):
-                print(self.list_date_server, self.list_error_server)
-                return 'Данные переданы правильно.\nТеперь необходимо передать диапазон дат для прогнозирования.'
+                return Date_range
 
-    @classmethod
-    def get_data(cls):
-        return cls.list_date_server, cls.list_error_server
+    def get_stored_data(self):
+        return jsonify({
+            'Dates': self.list_date_server,
+            'Errors': self.list_error_server
+        }), 200
 
+    # Запуск и порт сервера для получения данных.
     def run(self, host='127.0.0.1', port=8000):
         self.app.run(host=host, port=port, debug=True)
 
