@@ -7,9 +7,9 @@ class DataServer:
         self.app = Flask(__name__)
         self.list_date_server = []
         self.list_error_server = []
-        self.setup_routes()
+        self.setup_routes_server()
 
-    def setup_routes(self):
+    def setup_routes_server(self):
         self.app.add_url_rule('/', 'receive_data', self.receive_data, methods=['POST'])
         self.app.add_url_rule('/get_data', 'get_stored_data', self.get_stored_data, methods=['GET'])
 
@@ -34,12 +34,9 @@ class DataServer:
                     self.list_date_server.append(date)
                     # Сохраняем данные для ошибок в список.
                     self.list_error_server.append(error)
+                    return Date_range
                 else:
                     return Error_200
-
-            # Проверяется количество дат с количеством ошибок.
-            if len(self.list_date_server) == len(self.list_error_server):
-                return Date_range
 
     def get_stored_data(self):
         return jsonify({

@@ -9,8 +9,6 @@ import math
 from flask import jsonify, Flask
 import csv
 # нужен для удаления файлов после их использования
-import os
-
 import Data
 
 # данные для параметров алгоритма
@@ -114,6 +112,9 @@ def info():
 
     if current_error is not None:
         ErrorListInfo[-1]['found'][-1]['errorDuration'] = consecutiveCount
+
+    # for i in ErrorListInfo:
+    #     print(i)
 
 info()
 
@@ -560,10 +561,12 @@ def file_forecasting():
         intensive_data = intensive_data_list[i]
         # преобразуем строку в объект даты
         current_date = datetime.strptime(str(file.loc[last_index, 'Date']), '%Y-%m-%d %H:%M:%S')
+        print(type(current_date), current_date)
         # перебираем интенсивность каждой ошибки и добавляем к текущему индексу
         for intensive in intensive_data:
             current_date += timedelta(days=intensive)
             day_list.append(str(current_date.strftime("%d.%m.%Y")))
+        print(day_list)
 
     # создаем список для хранения данных
     list_compare = []
