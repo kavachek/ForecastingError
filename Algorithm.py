@@ -146,15 +146,19 @@ def step_before():
 
         for item in ErrorListInfo:
             code_error.append(item['code'])
+            # print(code_error)
             error_indices = [found_item['timeIndex'] for found_item in item.get('found', [])]
             error_indices_list.extend(error_indices)
         unique_error_codes = set(code_error)
+        # print(unique_error_codes)
 
         for error_code in unique_error_codes:
             indices_of_code = [i for i, code in enumerate(code_error) if code == error_code]
+            # print(indices_of_code)
             for ii in range(len(indices_of_code) - 1):
                 start_index = indices_of_code[ii]
                 end_index = indices_of_code[ii + 1]
+                print(start_index, end_index)
 
                 f = [error_indices_list[end_index] - index for index in
                      error_indices_list[start_index + 1:end_index]]
@@ -168,6 +172,7 @@ def step_before():
                     if iii - start_index - 1 < len(run_before):
                         temp_dict = {'code': code_error[iii], 'step_before': [run_before[iii - start_index - 1]]}
                         item_previous_errors.append(temp_dict)
+                # print(item_previous_errors)
         break
 
 step_before()
@@ -561,12 +566,10 @@ def file_forecasting():
         intensive_data = intensive_data_list[i]
         # преобразуем строку в объект даты
         current_date = datetime.strptime(str(file.loc[last_index, 'Date']), '%Y-%m-%d %H:%M:%S')
-        print(type(current_date), current_date)
         # перебираем интенсивность каждой ошибки и добавляем к текущему индексу
         for intensive in intensive_data:
             current_date += timedelta(days=intensive)
             day_list.append(str(current_date.strftime("%d.%m.%Y")))
-        print(day_list)
 
     # создаем список для хранения данных
     list_compare = []
