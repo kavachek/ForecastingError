@@ -176,8 +176,8 @@ class Info(MinDate):
                                               'Found': [{'TimeIndex': date_index,
                                                          'Month': month_date,
                                                          'ErrorDuration': 1}]})
-        for i in self.collecting_list_info:
-            print(i)
+        # for i in self.collecting_list_info:
+        #     print(i)
 
     def collection_data_run(self):
         code_error = []
@@ -219,12 +219,12 @@ class Info(MinDate):
 
 # Запуск сервера.
 if __name__ == '__main__':
-    # Запускаем сервер для обработки POST запросов
+    # Запускаем сервер для обработки POST запросов.
     Server = StartEndIndex()
 
-    # Использование класса MinDate
+    # Использование класса MinDate.
     Min_date_processor = MinDate()
     Min_date_processor.min_date()
-    # Использование класса Info
+    # Использование класса Info.
     List_info = Info()
     List_info.collection_data_run()

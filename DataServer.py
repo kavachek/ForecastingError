@@ -48,6 +48,7 @@ class DataServer:
     def run(self, host='127.0.0.1', port=8000):
         self.app.run(host=host, port=port, debug=True)
 
+
 if __name__ == '__main__':
     server = DataServer()
     server.run()

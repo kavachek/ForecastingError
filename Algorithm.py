@@ -146,19 +146,15 @@ def step_before():
 
         for item in ErrorListInfo:
             code_error.append(item['code'])
-            # print(code_error)
             error_indices = [found_item['timeIndex'] for found_item in item.get('found', [])]
             error_indices_list.extend(error_indices)
         unique_error_codes = set(code_error)
-        # print(unique_error_codes)
 
         for error_code in unique_error_codes:
             indices_of_code = [i for i, code in enumerate(code_error) if code == error_code]
-            # print(indices_of_code)
             for ii in range(len(indices_of_code) - 1):
                 start_index = indices_of_code[ii]
                 end_index = indices_of_code[ii + 1]
-                print(start_index, end_index)
 
                 f = [error_indices_list[end_index] - index for index in
                      error_indices_list[start_index + 1:end_index]]
@@ -170,9 +166,9 @@ def step_before():
                 item_previous_errors = []
                 for iii in range(start_index + 1, end_index):
                     if iii - start_index - 1 < len(run_before):
-                        temp_dict = {'code': code_error[iii], 'step_before': [run_before[iii - start_index - 1]]}
+                        temp_dict = {'code': code_error[iii], 'step_before': run_before[iii - start_index - 1]}
                         item_previous_errors.append(temp_dict)
-                # print(item_previous_errors)
+                print(item_previous_errors)
         break
 
 step_before()
