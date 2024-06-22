@@ -16,3 +16,7 @@ Date_error = """
 Process_error = """
                 Нет ошибок для обработки.
                 """
+
+# Сперва запускается файл DataServer.py, потом идет файл DataCollection.py, после GroupingErrors.py
+# Дальше идет MathCalculate.py
+

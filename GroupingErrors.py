@@ -1,7 +1,7 @@
 from DataCollection import Info
 
 
-class GroupingErrors(Info):
+class GroupingCode(Info):
     def __init__(self):
         super().__init__()
         # Группировка одинаковых ошибок.
@@ -14,8 +14,10 @@ class GroupingErrors(Info):
         self.grouped_errors_dict_not = {}
         # Периодичность ошибок.
         self.time_periodicity = {}
-        # Окончательный словарь с данными.
-        self.grouped_info = {}
+        # Окончательная переменная с данными(список).
+        self.grouped_info_list = []
+        # Окончательная переменная с данными(словарь).
+        self.grouped_info_dict = {}
 
     def analyze_error_periodicity(self):
         # 'Вытаскиваю' из списка self.collecting_list_info все значения из Code.
@@ -59,14 +61,17 @@ class GroupingErrors(Info):
 
             # Тут сгруппированы такие данные как: код ошибки, периодичность этой ошибки, а так же все данные хранятся
             # по ключу Cases -> полная информация о всех ошибках.
-            self.grouped_info = {'Code': code_info,
-                                 'TimePeriodicity': self.time_periodicity[code_info],
-                                 'Cases': error_list}
-            # print(self.grouped_info)
+            self.grouped_info_dict = {'Code': code_info,
+                                      'TimePeriodicity': self.time_periodicity[code_info],
+                                      'Cases': error_list}
+            # Добавляем словарь в список.
+            self.grouped_info_list.append(self.grouped_info_dict)
+        # for i in self.grouped_info_list:
+        #     print(i)
 
 
 # Запуск сервера.
 if __name__ == '__main__':
-    # Использование класса GroupingErrors.
-    Grouping_error = GroupingErrors()
+    # Использование класса GroupingCode.
+    Grouping_error = GroupingCode()
     Grouping_error.analyze_error_periodicity()

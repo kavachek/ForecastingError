@@ -30,8 +30,9 @@ class StartEndIndex:
         self.current_date_str = None
 
         self.list_date_server = ['01.02.2024', '03.02.2024', '08.02.2024', '11.02.2024', '14.02.2024', '15.02.2024',
-                                 '19.02.2024', '23.02.2024']
-        self.list_error_server = ['1', '2', '3', '4', '5', '1', '7', '5']
+                                 '19.02.2024', '23.02.2024', '28.02.2024', '29.02.2024', '23.03.2024', '27.03.2024',
+                                 '30.03.2024']
+        self.list_error_server = ['1', '2', '3', '4', '5', '1', '7', '5', '2', '4', '1', '7', '5']
 
         # self.list_date_server = []
         # self.list_error_server = []
@@ -161,6 +162,8 @@ class Info(MinDate):
         # Переменная для сохранения последовательности шагов назад между датами.
         self.run_before = []
         self.interval_error_list = []
+        # Список для хранения данных о количестве шагов назад.
+        self.item_previous_errors = []
 
     def collection_data(self):
         # НУЖНО БУДЕТ ДОРАБОТАТЬ ErrorDuration!!!!!!!!!!!!!!!!!!!!!
@@ -209,12 +212,11 @@ class Info(MinDate):
                 interval_error = code_error[start_index + 1:end_index]
                 self.interval_error_list.append(interval_error)
 
-                item_previous_errors = []
                 for intermediate_index in range(start_index + 1, end_index):
                     if intermediate_index - start_index - 1 < len(self.run_before):
                         temp_dict = {'Code': code_error[intermediate_index],
                                      'StepBefore': self.run_before[intermediate_index - start_index - 1]}
-                        item_previous_errors.append(temp_dict)
+                        self.item_previous_errors.append(temp_dict)
 
 
 # Запуск сервера.
