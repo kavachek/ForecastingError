@@ -91,7 +91,7 @@ class Calculations(GroupingCode, Info):
         # Берем данные из класса Info с общей информации об ошибках.
         for item_info in self.collecting_list_info:
             # Достаем номера ошибок.
-            code_info = item_info.get("Code")
+            code_info = item_info.get('Code')
             # Индекс ошибки.
             indices = [found_item_indices['TimeIndex'] for found_item_indices in item_info.get('Found', [])]
             if code_info not in self.indices_error:

@@ -168,7 +168,6 @@ def step_before():
                     if iii - start_index - 1 < len(run_before):
                         temp_dict = {'code': code_error[iii], 'step_before': run_before[iii - start_index - 1]}
                         item_previous_errors.append(temp_dict)
-                print(item_previous_errors)
         break
 
 step_before()

@@ -68,8 +68,8 @@ class Rules(Calculations):
         for code_current_count, follow_counts in self.error_follow_count.items():
             for next_code, count in follow_counts.items():
                 # Проверка, которая отсортирует ошибки, встречавшиеся меньше или ровно 3 раза.
-                # if len(self.error_follow_count_dict.values()) <= 3:
-                #     continue
+                if len(self.error_follow_count_dict.values()) <= 3:
+                    continue
                 total_follow_error_count = self.error_follow_count_dict[code_current_count]
                 percentage = int((count / total_follow_error_count) * 100)
                 # Если ошибка встречалась меньше 70%, тогда не берем во внимание.
