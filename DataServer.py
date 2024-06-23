@@ -49,6 +49,7 @@ class DataServer:
         self.app.run(host=host, port=port, debug=True)
 
 
+# Запуск сервера.
 if __name__ == '__main__':
     server = DataServer()
     server.run()
