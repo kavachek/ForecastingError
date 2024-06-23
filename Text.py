@@ -17,6 +17,5 @@ Process_error = """
                 Нет ошибок для обработки.
                 """
 
-# Сперва запускается файл DataServer.py, потом идет файл DataCollection.py, после GroupingErrors.py
-# Дальше идет MathCalculate.py
-
+# DataServer.py -> DataCollection.py -> GroupingErrors.py -> MathCalculate.py -> Rules.py -> Forecasting.py ->
+# -> AlgorithmMain.py
